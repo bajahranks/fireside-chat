@@ -1,9 +1,9 @@
 body {
     background: #ECEFF1;
     color: rgba(0, 0, 0, 0.87);
-    font-family: Roboto, Helvetica, Arial, sans-serif;
+    font-family: 'Roboto', Helvetica, Arial, sans-serif;
     margin: 0;
-    padding: 0;
+    padding: 1em;
 }
 
 #message {
@@ -12,10 +12,11 @@ body {
     margin: 100px auto 16px;
     padding: 32px 24px;
     border-radius: 3px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
 }
 
 #message h2 {
-    color: #ffa100;
+    color: #FFA100;
     font-weight: bold;
     font-size: 16px;
     margin: 0 0 8px;
@@ -37,16 +38,12 @@ body {
 #message a {
     display: block;
     text-align: center;
-    background: #039be5;
+    background: #039BE5;
     text-transform: uppercase;
     text-decoration: none;
     color: white;
     padding: 16px;
     border-radius: 4px;
-}
-
-#message, #message a {
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
 }
 
 #load {
@@ -56,19 +53,17 @@ body {
 }
 
 @media (max-width: 600px) {
-    body, #message {
+
+    body,
+    #message {
         margin-top: 0;
         background: white;
         box-shadow: none;
     }
 
     body {
-        border-top: 16px solid #ffa100;
+        border-top: 16px solid #FFA100;
     }
-}
-
-body {
-    margin: 1em;
 }
 
 button {
@@ -77,14 +72,97 @@ button {
 
 div#videos {
     display: flex;
-    flex-direction: row;
     flex-wrap: wrap;
 }
 
-div#videos > video {
+div#videos>video {
     background: black;
     width: 640px;
     height: 100%;
     display: block;
     margin: 1em;
+}
+
+#buttons button {
+    margin: 0 10px;
+    background-color: #F38721;
+    color: #FFFFFF;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    cursor: pointer;
+}
+
+#buttons button:disabled {
+    background-color: #CCCCCC;
+    cursor: not-allowed;
+}
+
+
+@keyframes breathing {
+    0% { background-color: rgba(255, 87, 51, 0.7); }
+    50% { background-color: rgba(217, 19, 138, 0.7); }
+    100% { background-color: rgba(255, 87, 51, 0.7); }
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    color: white;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    animation: breathing 4s infinite;
+}
+
+h1 {
+    font-size: 2em;
+    margin-bottom: 20px;
+}
+
+#buttons {
+    display: flex;
+    gap: 10px;
+}
+
+.mdc-button {
+    background-color: #ff5733;
+    color: white;
+}
+
+#videos {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+video {
+    background: black;
+    width: 300px;
+    height: 200px;
+}
+
+.mdc-dialog__surface {
+    background-color: #ff5733;
+    color: white;
+    border-radius: 10px;
+}
+
+.mdc-text-field {
+    width: 100%;
+}
+
+.circle {
+    height: 24px;
+    width: 24px;
+    border-radius: 24px;
+    background-color: black;
+    position: fixed; 
+    top: 0;
+    left: 0;
+    pointer-events: none;
+    z-index: 99999999; /* so that it stays on top of all other elements */
 }

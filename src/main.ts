@@ -20,6 +20,13 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   const configService = app.get(ConfigService);
 
+  console.log('Loaded configuration:', {
+    FIREBASE_PROJECT_ID: configService.get<string>('FIREBASE_PROJECT_ID'),
+    FIREBASE_PRIVATE_KEY: configService.get<string>('FIREBASE_PRIVATE_KEY'),
+    FIREBASE_CLIENT_EMAIL: configService.get<string>('FIREBASE_CLIENT_EMAIL'),
+    API_PORT: configService.get<string>('API_PORT'),
+  });
+
   // Set the config options
   const adminConfig: ServiceAccount = {
     projectId: configService.get<string>('FIREBASE_PROJECT_ID'),
