@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 import { Button } from '@rmwc/button'
-import { addDoc, setDoc, collection, doc, onSnapshot } from 'firebase/firestore'
+import { addDoc, setDoc, collection, doc, onSnapshot, getDoc, updateDoc } from 'firebase/firestore'
 import { firestore } from '../firebase_setup'
 
 let peerConnection = null
@@ -18,28 +18,28 @@ const configuration = {
     },
   ],
   iceCandidatePoolSize: 10,
-};
+}
 
 const registerPeerConnectionListeners = () => {
   peerConnection.addEventListener('icegatheringstatechange', () => {
     console.log(
       `ICE gathering state changed: ${peerConnection.iceGatheringState}`,
-    );
-  });
+    )
+  })
 
   peerConnection.addEventListener('connectionstatechange', () => {
     console.log(`Connection state change: ${peerConnection.connectionState}`)
-  });
+  })
 
   peerConnection.addEventListener('signalingstatechange', () => {
     console.log(`Signaling state change: ${peerConnection.signalingState}`)
-  });
+  })
 
   peerConnection.addEventListener('iceconnectionstatechange ', () => {
     console.log(
       `ICE connection state change: ${peerConnection.iceConnectionState}`,
-    );
-  });
+    )
+  })
 }
 
 export const ButtonMenu = () => {
@@ -87,7 +87,7 @@ export const ButtonMenu = () => {
 
     localStream.getTracks().forEach((track) => {
       peerConnection.addTrack(track, localStream)
-    });
+    })
 
     // Collecting ICE candidates
     const callerCandidatesCollection = collection(firestore,`rooms/${roomRef.id}/callerCandidates`)
@@ -101,7 +101,7 @@ export const ButtonMenu = () => {
       console.log('Got candidate: ', event.candidate)
 
       await addDoc(callerCandidatesCollection, event.candidate.toJSON())
-    });
+    })
 
     // Create a room
     const offer = await peerConnection.createOffer()
@@ -115,53 +115,155 @@ export const ButtonMenu = () => {
         type: offer.type,
         sdp: offer.sdp,
       },
-    };
+    }
 
-    await setDoc(roomRef, roomWithOffer);
+    await setDoc(roomRef, roomWithOffer)
 
-    roomId = roomRef.id;
+    roomId = roomRef.id
 
-    console.log(`New room created with SDP offer. Room ID: ${roomRef.id}`);
+    console.log(`New room created with SDP offer. Room ID: ${roomRef.id}`)
 
     document.querySelector(
       '#currentRoom',
-    ).innerText = `Current room is ${roomRef.id} - You are the caller!`;
+    ).innerText = `Current room is ${roomRef.id} - You are the caller!`
 
     peerConnection.addEventListener('track', (event) => {
-      console.log('Got remote track:', event.streams[0]);
+      console.log('Got remote track:', event.streams[0])
 
       event.streams[0].getTracks().forEach((track) => {
-        console.log('Add a track to the remoteStream:', track);
+        console.log('Add a track to the remoteStream:', track)
 
-        remoteStream.addTrack(track);
-      });
-    });
+        remoteStream.addTrack(track)
+      })
+    })
 
     // Listening for remote session description
-    roomRef.onSnapshot(async (snapshot) => {
-      const data = snapshot.data();
+    onSnapshot(roomRef,async (snapshot) => {
+      const data = snapshot.data()
 
       if (!peerConnection.currentRemoteDescription && data && data.answer) {
         console.log('Got remote description: ', data.answer);
 
-        const rtcSessionDescription = new RTCSessionDescription(data.answer);
+        const rtcSessionDescription = new RTCSessionDescription(data.answer)
 
-        await peerConnection.setRemoteDescription(rtcSessionDescription);
+        await peerConnection.setRemoteDescription(rtcSessionDescription)
       }
-    });
+    })
 
     // Listen for remote ICE candidates below
-    roomRef.collection('calleeCandidates').onSnapshot((snapshot) => {
+    const calleeCandidatesCollection = collection(firestore,`rooms/${roomRef.id}/calleeCandidates`)
+    onSnapshot(calleeCandidatesCollection,(snapshot) => {
       snapshot.docChanges().forEach(async (change) => {
         if (change.type === 'added') {
-          let data = change.doc.data();
+          let data = change.doc.data()
 
-          console.log(`Got new remote ICE candidate: ${JSON.stringify(data)}`);
+          console.log(`Got new remote ICE candidate: ${JSON.stringify(data)}`)
 
-          await peerConnection.addIceCandidate(new RTCIceCandidate(data));
+          await peerConnection.addIceCandidate(new RTCIceCandidate(data))
         }
+      })
+    })
+  }
+
+  const joinRoom = () => {
+    setIsCreateBtnDisabled(!isCreateBtnDisabled)
+    setIsJoinBtnDisabled(!isJoinBtnDisabled)
+
+    document.querySelector('#confirmJoinBtn').addEventListener(
+      'click',
+      async () => {
+        roomId = document.querySelector('#room-id').value
+        console.log('Join room: ', roomId)
+        document.querySelector(
+          '#currentRoom',
+        ).innerText = `Current room is ${roomId} - You are the callee!`
+
+        await joinRoomById(roomId)
+      },
+      {once: true},
+    );
+    roomDialog.open()
+  }
+
+  async function joinRoomById(roomId) {
+    const roomRef = doc(collection(firestore, 'rooms'), roomId)
+    const roomSnapshot = await getDoc(roomRef)
+
+    console.log('Got room:', roomSnapshot.exists)
+
+    if (roomSnapshot.exists) {
+      console.log('Create PeerConnection with configuration: ', configuration)
+
+      peerConnection = new RTCPeerConnection(configuration)
+
+      registerPeerConnectionListeners()
+
+      localStream.getTracks().forEach((track) => {
+        peerConnection.addTrack(track, localStream)
+      })
+
+      // Code for collecting ICE candidates
+      const calleeCandidatesCollection = collection(firestore,`rooms/${roomRef.id}/calleeCandidates`)
+
+      peerConnection.addEventListener('icecandidate', async (event) => {
+        console.log('Got final candidate!')
+
+        if (!event.candidate) {
+          return
+        }
+
+        console.log('Got candidate: ', event.candidate)
+
+        await addDoc(calleeCandidatesCollection, event.candidate.toJSON())
       });
-    });
+
+      peerConnection.addEventListener('track', (event) => {
+        console.log('Got remote track:', event.streams[0])
+
+        event.streams[0].getTracks().forEach((track) => {
+          console.log('Add a track to the remoteStream:', track)
+
+          remoteStream.addTrack(track)
+        })
+      })
+
+      // Code for creating SDP answer
+      const offer = roomSnapshot.data().offer
+
+      console.log('Got offer:', offer)
+
+      await peerConnection.setRemoteDescription(new RTCSessionDescription(offer))
+
+      const answer = await peerConnection.createAnswer()
+
+      console.log('Created answer:', answer)
+
+      await peerConnection.setLocalDescription(answer)
+
+      const roomWithAnswer = {
+        answer: {
+          type: answer.type,
+          sdp: answer.sdp,
+        },
+      }
+
+      await updateDoc(roomRef, roomWithAnswer)
+
+      // Listening for remote ICE candidates below
+      const callerCandidatesCollection = collection(firestore,`rooms/${roomRef.id}/callerCandidates`)
+
+      onSnapshot(callerCandidatesCollection, (snapshot) => {
+        snapshot.docChanges().forEach(async (change) => {
+          if (change.type === 'added') {
+            let data = change.doc.data()
+
+            console.log(`Got new remote ICE candidate: ${JSON.stringify(data)}`)
+
+            await peerConnection.addIceCandidate(new RTCIceCandidate(data))
+          }
+        })
+      })
+    }
   }
 
   return (
@@ -181,7 +283,7 @@ export const ButtonMenu = () => {
         icon="group_add"
         aria-hidden={isCreateBtnDisabled}
         raised
-        {...(isCreateBtnDisabled ? {disabled:true, ariaHidden:true} : '')}
+        {...(isCreateBtnDisabled ? {disabled:true} : '')}
         onClick={() => createRoom()}
       />
       <Button
