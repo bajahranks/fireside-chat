@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@rmwc/button": "^14.0.1",
+    "@rmwc/textfield": "^14.0.2",
     "@rmwc/touch-target": "^14.0.1",
     "firebase": "^10.7.0",
     "material-components-web": "^14.0.0",
