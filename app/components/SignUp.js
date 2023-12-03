@@ -2,13 +2,16 @@
 
 import { useState } from 'react'
 import Link from 'next/link'
-import { signUp } from '../firebase_setup';
+import { signUp } from '../firebase_setup'
+import { useRouter } from 'next/navigation'
 
 const SignUp = () => {
   const [username, setUsername] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [signUpError, setSignUpError] = useState('')
+
+  const router = useRouter()
 
   const handleSubmit = async (e) => {
     e.preventDefault()
@@ -18,6 +21,9 @@ const SignUp = () => {
     setEmail('')
     setPassword('')
 
+    console.log('Is authenticated: ' + res.email)
+
+    if (res.email) router.replace('/profile')
     if (res.error) setSignUpError('Error Signing up: ' + res.error)
   }
 
