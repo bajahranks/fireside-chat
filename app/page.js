@@ -1,5 +1,9 @@
+<<<<<<< HEAD
 import styles from './page.module.css';
 import { VideoWrapper } from '@/app/components/VideoWrapper';
+=======
+import styles from './page.module.css'
+>>>>>>> 50182398a7279fbf0538b39f27b7b88b3e3092a3
 
 
 export const metadata = {
@@ -7,8 +11,9 @@ export const metadata = {
   description: 'An advanced web-based communication application',
 };
 
-export default function Home() {
+const Home = () => {
   return (
+<<<<<<< HEAD
     <main className={styles.main}>
       <h1>Welcome to Fireside Chat!</h1>
       <VideoWrapper />
@@ -16,3 +21,10 @@ export default function Home() {
   );
 }
 
+=======
+    <h1>Welcome to Fireside Chat!</h1>
+  )
+}
+
+export default Home
+>>>>>>> 50182398a7279fbf0538b39f27b7b88b3e3092a3
