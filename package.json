@@ -9,6 +9,10 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@emotion/react": "^11.11.1",
+    "@emotion/styled": "^11.11.0",
+    "@mui/icons-material": "^5.14.19",
+    "@mui/material": "^5.14.19",
     "@rmwc/button": "^14.0.1",
     "@rmwc/textfield": "^14.0.2",
     "@rmwc/touch-target": "^14.0.1",
