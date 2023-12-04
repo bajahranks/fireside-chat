@@ -1,18 +1,19 @@
 'use client'
 
-import { useEffect } from 'react'
-import { useRouter } from 'next/navigation'
+import { useEffect, useState } from 'react'
 import { onAuthStateChanged } from 'firebase/auth'
 import { auth } from '../firebase_setup'
 import { logOut } from '../firebase_setup'
+import SignIn from '@/app/components/SignIn';
 
 const Profile = () => {
-  const router = useRouter()
+  const [user, setUser] = useState({})
+  //const router = useRouter()
 
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
-      console.log('User:', user)
-      if(!user) router.replace('/login')
+      setUser(user)
+      console.log('User:', user.email)
     })
 
   }, [])
@@ -21,8 +22,14 @@ const Profile = () => {
 
   return (
     <>
-      <h1>Profile</h1>
-      <button onClick={handleLogout}>Logout</button>
+      {user
+        ? <>
+            <h1>Profile</h1>
+            <p>Email: {user.email}</p>
+            <button onClick={handleLogout}>Logout</button>
+          </>
+        : <SignIn />
+      }
     </>
   )
 }

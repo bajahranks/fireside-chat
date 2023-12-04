@@ -2,9 +2,9 @@ import styles from '@/app/page.module.css'
 
 const Home = () => {
   return (
-    <main className={styles.main}>
+    <div className={styles.main}>
       <h1>Welcome to Fireside Chat!</h1>
-    </main>
+    </div>
   )
 }
 

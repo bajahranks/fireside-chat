@@ -348,31 +348,6 @@ export const VideoWrapper = () => {
         <video id={'localVideo'} ref={localRef} muted autoPlay playsInline> </video>
         <video id={'remoteVideo'} ref={remoteRef} autoPlay playsInline> </video>
       </div>
-
-      {/*<Dialog
-        id={'room-dialog'}
-        aria-modal={true}
-        aria-labelledby={'join-room'}
-        aria-describedby={'join-room-content'}
-        open={openDialog}
-        onClose={(evt) => {
-          console.log(evt.detail.action)
-          setOpenDialog(false)
-        }}
-        onClosed={(evt) => console.log(evt.detail.action)}
-      >
-        <DialogTitle id={'join-room'}>Join room</DialogTitle>
-        <DialogContent id={'join-room-content'}>
-          Enter ID for room to join:
-          <TextField id={'room-id'} label={'Room ID'} />
-        </DialogContent>
-        <DialogActions>
-          <DialogButton action={'close'}>Cancel</DialogButton>
-          <DialogButton id={'confirmJoinBtn'} action={'accept'} isDefaultAction>
-            Join
-          </DialogButton>
-        </DialogActions>
-      </Dialog>*/}
     </>
   )
 }

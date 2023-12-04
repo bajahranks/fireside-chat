@@ -4,7 +4,7 @@
 
 .chatInfo {
     height: 50px;
-    background-color: #5d5b8d;
+    background-color: rgba(255, 87, 51, 0.7);
     display: flex;
     align-items: center;
     justify-content: space-between;

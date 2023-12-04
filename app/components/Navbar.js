@@ -5,9 +5,7 @@ const Navbar = ({user}) => {
     <div className={styles.navbar}>
       <span className={styles.navbarLogo}>Fireside Chat</span>
       <div className={styles.navbarUser}>
-        <img src={user?.photoURL} alt="" />
-        <span>{user?.displayName}dsds</span>
-        <button onClick={()=>signOut(auth)}>logout</button>
+        <span>{user?.email}</span>
       </div>
     </div>
   )

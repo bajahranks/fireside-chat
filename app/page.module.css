@@ -12,14 +12,16 @@
 /**********************************************************
  * GENERAL
  *********************************************************/
+.sitewide {
+  animation: breathing 4s infinite;
+}
+
 .main {
-  background: #ECEFF1;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   height: 100vh;
-  animation: breathing 4s infinite;
 }
 
 #load {
