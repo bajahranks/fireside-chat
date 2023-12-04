@@ -1,13 +1,10 @@
-import styles from './page.module.css'
-
-export const metadata = {
-  title: 'Fireside Chat',
-  description: 'An advanced web-based communication application',
-}
+import styles from '@/app/page.module.css'
 
 const Home = () => {
   return (
-    <h1>Welcome to Fireside Chat!</h1>
+    <main className={styles.main}>
+      <h1>Welcome to Fireside Chat!</h1>
+    </main>
   )
 }
 
