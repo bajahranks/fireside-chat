@@ -21,7 +21,8 @@
     "material-icons": "^1.13.12",
     "next": "14.0.3",
     "react": "^18",
-    "react-dom": "^18"
+    "react-dom": "^18",
+    "uuid": "^9.0.1"
   },
   "devDependencies": {
     "eslint": "^8",
