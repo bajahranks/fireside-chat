@@ -46,7 +46,7 @@ const Chat = () => {
   return (
     <div className={styles.chat}>
       <div className={styles.chatInfo}>
-        <span></span>
+        <span>{state.user.email}</span>
         <div className={styles.chatIcons}>
           <Image className={styles.chatIcon} src={Cam} alt={''}  priority />
           <Image className={styles.chatIcon} src={Add} alt={''}  />

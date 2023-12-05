@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react'
 import { onAuthStateChanged } from 'firebase/auth'
 import { auth } from '../firebase_setup'
 import { logOut } from '../firebase_setup'
-import SignIn from '@/app/components/SignIn';
+import SignIn from '@/app/components/SignIn'
 
 const Profile = () => {
   const [user, setUser] = useState({})
@@ -13,7 +13,7 @@ const Profile = () => {
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
       setUser(user)
-      console.log('User:', user.email)
+      console.log('User:', user?.email)
     })
 
   }, [])

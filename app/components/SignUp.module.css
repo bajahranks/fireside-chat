@@ -1,5 +1,4 @@
 .formContainer {
-    background-color: #a7bcff;
     height: 100vh;
     display: flex;
     align-items: center;
@@ -39,7 +38,7 @@
 }
 
 .formContainer .formWrapper form button {
-    background-color: #7b96ec;
+    background-color: rgba(255, 87, 51, 0.7);
     color: white;
     padding: 10px;
     font-weight: bold;
