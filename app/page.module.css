@@ -16,10 +16,10 @@
   background: #ECEFF1;
   display: flex;
   flex-direction: column;
-  align-items: center;
   justify-content: center;
   height: 100vh;
   animation: breathing 4s infinite;
+  text-align: center;
 }
 
 #load {
@@ -27,10 +27,38 @@
   text-align: center;
   font-size: 13px;
 }
+
+.header {
+  width: 100%;
+  height: 30px;
+  padding: 16px;
+  background-color: #333;
+  color: #fff;
+  margin: 0;
+  float: top;
+  position: static;
+  background-color: rgb(221, 61, 61);
+  text-align: center;
+}
+
+.img{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.imgcontainer{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 20px;
+}
+
 /*---------------------------------------------------------*/
 
 /**********************************************************
- * MESSAGE
+ * 2. MESSAGE
  *********************************************************/
 #message {
   background: white;
@@ -43,7 +71,7 @@
 
 #message h1 {
   font-size: 22px;
-  font-weight: 300;
+  font-weight: 400;
   color: rgba(0, 0, 0, 0.6);
   margin: 0 0 16px;
 }
@@ -74,9 +102,8 @@
 }
 /*---------------------------------------------------------*/
 
-
 /**********************************************************
- * ANIMATION
+ * 3. ANIMATION
  *********************************************************/
 @keyframes breathing {
   0% { background-color: rgba(255, 87, 51, 0.7); }
@@ -84,8 +111,9 @@
   100% { background-color: rgba(255, 87, 51, 0.7); }
 }
 /*---------------------------------------------------------*/
+
 /**********************************************************
- * CIRCLE POINTER
+ * 4. CIRCLE POINTER
  *********************************************************/
 .circle {
   height: 24px;
@@ -99,8 +127,9 @@
   z-index: 99999999; /* so that it stays on top of all other elements */
 }
 /*---------------------------------------------------------*/
+
 /**********************************************************
- * RESPONSIVE
+ * 5. RESPONSIVE
  *********************************************************/
 /*@media (max-width: 600px) {
   main, #message {
@@ -115,6 +144,9 @@
 }*/
 /*---------------------------------------------------------*/
 
+/**********************************************************
+ * 6. BUTTON
+ *********************************************************/
 .Button {
   background-color: rgba(255, 87, 51, 0.7);
   color: #fff;
@@ -138,3 +170,15 @@
 .Button:visited {
   text-decoration: none;
 }
+
+.interact {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 20px; /* Adjust margin as needed */
+}
+
+.interact p {
+  margin: 0 10px; /* Add spacing between text and buttons */
+}
+/*---------------------------------------------------------*/
