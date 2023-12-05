@@ -5,7 +5,7 @@ const Navbar = ({user}) => {
     <div className={styles.navbar}>
       <span className={styles.navbarLogo}>Fireside Chat</span>
       <div className={styles.navbarUser}>
-        <span>{user?.email}</span>
+        <span>{user?.displayName}</span>
       </div>
     </div>
   )

@@ -1,5 +1,5 @@
 import { initializeApp, getApps, getApp } from 'firebase/app';
-import { addDoc, collection, getFirestore } from 'firebase/firestore';
+import { addDoc, collection, getFirestore, setDoc, doc } from 'firebase/firestore';
 import { createUserWithEmailAndPassword, getAuth, signInWithEmailAndPassword, signOut, updateProfile  } from 'firebase/auth';
 
 const firebaseConfig = {
@@ -27,16 +27,16 @@ export const signUp = async (username, email, password) => {
     })
 
     // Create a profile for the user
-    await addDoc(collection(firestore, 'profile'), {
+    await setDoc(doc(firestore, 'profile', user.uid), {
       uid: user.uid,
       username: username,
       email: email
     })
 
     // Create empty user chats
-    await addDoc(collection(firestore, 'userChats', user.uid), {})
+    await setDoc(doc(firestore, 'userChats', user.uid), {})
 
-    return true
+    return user
   } catch (error) {
     return {error: error.message}
   }
