@@ -1,26 +1,17 @@
 'use client'
 
-import { useEffect, useState } from 'react'
-import { onAuthStateChanged } from 'firebase/auth'
-import { auth } from '../firebase_setup'
 import Chats from '@/app/components/Chats'
 import Navbar from '@/app/components/Navbar'
 import styles from './Sidebar.module.css'
+import Search from '@/app/components/Search';
 
-const Sidebar = () => {
-  const [currentUser, setCurrentUser] = useState({})
-
-  useEffect(() => {
-    onAuthStateChanged(auth, (user) => {
-      setCurrentUser(user)
-    })
-  }, [])
-
+const Sidebar = ({currentUser, dispatch}) => {
+  console.log('sidebar user: ' + currentUser.displayName)
   return (
     <div className={styles.sidebar}>
-      <Navbar user={currentUser}/>
-      {/*<Search/>*/}
-      <Chats/>
+      <Navbar user={currentUser} />
+      <Search user={currentUser} />
+      <Chats user={currentUser} dispatch={dispatch} />
     </div>
   )
 }

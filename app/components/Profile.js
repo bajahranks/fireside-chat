@@ -5,6 +5,7 @@ import { onAuthStateChanged } from 'firebase/auth'
 import { auth } from '../firebase_setup'
 import { logOut } from '../firebase_setup'
 import SignIn from '@/app/components/SignIn'
+import TopBar from '@/app/components/TopBar'
 
 const Profile = () => {
   const [user, setUser] = useState({})
@@ -24,7 +25,9 @@ const Profile = () => {
     <>
       {user
         ? <>
+            <TopBar />
             <h1>Profile</h1>
+            <p>Display Name: {user.displayName}</p>
             <p>Email: {user.email}</p>
             <button onClick={handleLogout}>Logout</button>
           </>

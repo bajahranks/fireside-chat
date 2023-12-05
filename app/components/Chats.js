@@ -6,7 +6,7 @@ import { firestore } from '../firebase_setup'
 import Image from 'next/image';
 import styles from './Chats.module.css'
 
-const Chats = ({ user, dispatch}) => {
+const Chats = ({user, dispatch}) => {
   const [chats, setChats] = useState([])
 
   useEffect(() => {
