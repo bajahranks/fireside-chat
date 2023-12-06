@@ -9,11 +9,13 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@nextui-org/react": "^2.2.9",
     "@rmwc/button": "^14.0.1",
     "@rmwc/textfield": "^14.0.2",
     "@rmwc/top-app-bar": "^14.0.3",
     "@rmwc/touch-target": "^14.0.1",
     "firebase": "^10.7.0",
+    "framer-motion": "^10.16.14",
     "material-components-web": "^14.0.0",
     "material-icons": "^1.13.12",
     "next": "14.0.3",
