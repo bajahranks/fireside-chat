@@ -1,14 +1,9 @@
 import styles from '@/app/page.module.css'
 import {Button} from '@nextui-org/button';
-import { Navbar } from '@nextui-org/react';
 import Image from 'next/image';
 
 const Home = () => {
   return (
-  <>
-    <header className={styles.header}>
-        <Navbar brand="Fireside Chat"> FIRESIDE IS CURRENTLY UNDER CONSTRUCTION, PLEASE VISIT AGAIN SOON! </Navbar>
-    </header>
     <main className={styles.main}>
     <div className={styles.imgcontainer}>
     <Image
@@ -38,7 +33,7 @@ const Home = () => {
           </div>
       </div>
     </main>
-  </> )
+    )
 };
 
 export default Home;
