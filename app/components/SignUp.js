@@ -34,7 +34,7 @@ const SignUp = () => {
       <div className={styles.formWrapper}>
         <span className={styles.title}>Sign Up</span>
         <div>
-          {signUpError ? <div>{signUpError}</div> : null}
+          {signUpError ? <div className={styles.error}>{signUpError}</div> : null}
           <form onSubmit={handleSubmit}>
             <input
               type={'text'}

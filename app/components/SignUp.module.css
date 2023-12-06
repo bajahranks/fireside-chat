@@ -17,6 +17,11 @@
 
 .title {
     color: #5d5b8d;
+    font-size: 20px;
+}
+
+.error {
+    color: red;
     font-size: 12px;
 }
 
@@ -29,7 +34,6 @@
 .formContainer .formWrapper form input {
     padding: 15px;
     border: none;
-    width: 250px;
     border-bottom: 1px solid #a7bcff;
 }
 
