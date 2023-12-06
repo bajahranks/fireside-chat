@@ -24,13 +24,12 @@ const Profile = () => {
   return (
     <>
       {user
-        ? <>
-            <TopBar />
+        ? <div>
             <h1>Profile</h1>
             <p>Display Name: {user.displayName}</p>
             <p>Email: {user.email}</p>
             <button onClick={handleLogout}>Logout</button>
-          </>
+          </div>
         : <SignIn />
       }
     </>

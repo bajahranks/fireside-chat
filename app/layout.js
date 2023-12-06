@@ -1,4 +1,5 @@
 import { Roboto } from 'next/font/google'
+import TopBar from '@/app/components/TopBar'
 import 'material-components-web/dist/material-components-web.css'
 import 'material-icons/iconfont/material-icons.css'
 import './globals.css'
@@ -15,6 +16,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={roboto.className}>
+        <TopBar />
         <main className={styles.sitewide}>
           {children}
         </main>
