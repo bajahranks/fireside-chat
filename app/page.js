@@ -1,12 +1,13 @@
 import styles from '@/app/page.module.css'
 import {Button} from '@nextui-org/button';
 import Image from 'next/image';
+import TopBar from  '@/app/components/TopBar'
 
 const Home = () => {
   return (
     <>
       <TopBar />
-      <div className={styles.main}>
+    <div className={styles.main}>
     <div className={styles.imgcontainer}>
     <Image
         className={styles.img}
